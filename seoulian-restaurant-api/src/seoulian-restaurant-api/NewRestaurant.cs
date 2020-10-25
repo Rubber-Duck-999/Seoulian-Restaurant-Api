@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace seoulian-restaurant-api
+namespace seoulian_restaurant_api
 {
 	public class NewRestaurant
     {
