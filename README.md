@@ -1,9 +1,7 @@
-# HouseGuard-StatusApi
+# Seoulian-Restaurant-Api
 
-![Go](https://github.com/Rubber-Duck-999/HouseGuard-FaultHandler/workflows/Go/badge.svg)
-
-HouseGuard-StatusApi is the Python component that is part of the HouseGuard solution. 
-It's role to respond to requests on AWS to perform CRUD operations on the status db.
+Seoulian-Restaurant-Api is the Python component that is part of the Seoulian solution. 
+It's role to respond to requests on AWS to perform CRUD operations on the restaurant db.
 
 ## Installation
 
