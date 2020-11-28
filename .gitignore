@@ -130,3 +130,6 @@ dmypy.json
 
 obj/
 bin/
+
+*.zip
+*.tar.gz
