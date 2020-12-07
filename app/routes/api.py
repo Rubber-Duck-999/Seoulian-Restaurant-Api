@@ -8,7 +8,7 @@ from model.restaurant import RestaurantModel
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp, prefix="/api/v1")
 
-class RestaurantId(Resource):
+class RestaurantById(Resource):
 
     def get(self, id):
         """
@@ -24,12 +24,12 @@ class RestaurantId(Resource):
 
         restaurant = request.get_json()
         res = RestaurantModel()
-        results = res.get_restaurant(id)
+        results = res.get_restaurant_by_name(id)
         message = json.dumps(results)
-        resp = Response(message, status=results['statusCode'], mimetype='application/json')
+        resp = Response(message, status=200, mimetype='application/json')
         return resp
 
-class RestaurantName(Resource):
+class RestaurantsByNameAPI(Resource):
 
     def get(self, name):
         """
@@ -45,31 +45,10 @@ class RestaurantName(Resource):
 
         restaurant = request.get_json()
         res = RestaurantModel()
-        results = res.get_restaurant(name)
-        message = json.dumps(results)
-        resp = Response(message, status=results['statusCode'], mimetype='application/json')
-        return resp
-
-class RestaurantPostcode(Resource):
-
-    def get(self, postcode):
-        """
-        Uses the restaurant to get a restaurant
-        :return:
-        """
-
-        if not validate_restaurant_postcode(postcode):
-            results = "Error"
-            message = json.dumps(results)
-            resp = Response(message, status=400, mimetype='application/json')
-            return resp
-
-        restaurant = request.get_json()
-        res = RestaurantModel()
-        results = res.get_restaurant(postcode)
-        message = json.dumps(results)
-        resp = Response(message, status=results['statusCode'], mimetype='application/json')
-        return resp      
+        results = res.get_restaurant_by_name(name)
+        response = json.dumps(results)
+        resp = Response(response, status=200, mimetype='application/json')
+        return resp    
 
 class Restaurant(Resource):
 
@@ -89,7 +68,7 @@ class Restaurant(Resource):
         res = RestaurantModel()
         results = res.create_restaurant(restaurant)
         message = json.dumps(results)
-        resp = Response(message, status=results['statusCode'], mimetype='application/json')
+        resp = Response(message, status=200, mimetype='application/json')
         return resp
 
 class Post(Resource):
@@ -99,8 +78,7 @@ class Post(Resource):
         return ''
 
 
-api.add_resource(RestaurantId, "/restaurant/:id")
-api.add_resource(RestaurantName, "/restaurant/:name")
-api.add_resource(RestaurantPostcode, "/restaurant/:postcode")
+api.add_resource(RestaurantById, "/restaurant/<int:id>", endpoint='restuarnt_by_id')
+api.add_resource(RestaurantsByNameAPI, "/restaurants/<name>", endpoint='restaurants_by_name')
 api.add_resource(Restaurant, "/restaurant")
 api.add_resource(Post, "/post")

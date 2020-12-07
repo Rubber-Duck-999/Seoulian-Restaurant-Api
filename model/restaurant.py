@@ -29,14 +29,15 @@ class RestaurantModel(SQL):
         else:
             self.conn.close()
 
-    def get_restaurant(self, restaurant):
+    def get_restaurant_by_name(self, name):
         try:
+            print("Getting restaurant")
             # Create a new record
             if not self.check_connection():
-                return failure_db(), True
+                return failure_db()
             cursor = self.conn.cursor()
 
-            cursor.execute("SELECT * FROM Restaurants WHERE RestaurantId=%s", restaurant.name)
+            cursor.execute("SELECT * FROM Restaurants WHERE RestaurantId=%s", name)
             row = cursor.fetchone()
             # connection is not autocommit by default. So you must commit to save
             # your changes.
@@ -46,8 +47,8 @@ class RestaurantModel(SQL):
             self.conn.close()
             message = success()
             message['body'] = row
-            return message, False
+            return message
 
         except pymysql.MySQLError as e:
             self.error = e
-            return failure_db(), True
+            return failure_db()
