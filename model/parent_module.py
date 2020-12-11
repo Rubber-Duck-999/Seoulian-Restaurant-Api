@@ -40,5 +40,6 @@ class SQL():
             self.open_connection()
             if self.conn is None:
                 return True
-        except:
+        except Exception as ex:
+            print("Environment variables not set: " + ex)
             return False
