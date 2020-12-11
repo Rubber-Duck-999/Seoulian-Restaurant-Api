@@ -1,8 +1,8 @@
 
-from flask import request, app, Blueprint, Response, jsonify
+from flask import request, Blueprint, Response
 from flask_restful import Resource, Api
 import json
-from middleware.restaurant import validate_restaurant_id, validate_restaurant_name, validate_restaurant_postcode
+from middleware.restaurant import validate_restaurant_id, validate_restaurant_name
 from model.restaurant import RestaurantModel
 
 api_bp = Blueprint('api', __name__)
