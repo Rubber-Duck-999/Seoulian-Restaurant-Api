@@ -16,8 +16,8 @@ class SQL():
             self.password = os.environ['PASSWORD']
             self.db_name = os.environ['DB']
             self.port = os.environ['PORT_NUMBER']
-        except:
-            print("Environment variables not set")
+        except Exception as ex:
+            print("Environment variables not set: " + ex)
 
     def open_connection(self):
         """Connect to MySQL Database."""
@@ -40,5 +40,6 @@ class SQL():
             self.open_connection()
             if self.conn is None:
                 return True
-        except:
+        except Exception as ex:
+            print("Environment variables not set: " + ex)
             return False
